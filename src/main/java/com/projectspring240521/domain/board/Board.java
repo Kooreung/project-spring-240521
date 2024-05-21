@@ -1,4 +1,4 @@
-package com.projectspring240521.domain;
+package com.projectspring240521.domain.board;
 
 import lombok.Data;
 
