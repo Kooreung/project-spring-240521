@@ -1,6 +1,7 @@
 package com.projectspring240521.mapper.board;
 
 import com.projectspring240521.domain.board.Board;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -29,4 +30,10 @@ public interface BoardMapper {
             WHERE id= #{id}
             """)
     Board selectById(Integer id);
+
+    @Delete("""
+            DELETE FROM board
+            WHERE id = #{id}
+            """)
+    Integer deleteById(Integer id);
 }
