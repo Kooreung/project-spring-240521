@@ -17,11 +17,12 @@ public class BoardController {
     private final BoardService service;
 
     @PostMapping("add")
-    public void add(@RequestBody Board board) {
+    public ResponseEntity add(@RequestBody Board board) {
         if (service.validate(board)) {
             service.add(board);
+            return ResponseEntity.ok().build();
         } else {
-            ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest().build();
         }
     }
 }
