@@ -36,7 +36,13 @@ public class BoardController {
     }
 
     @GetMapping("{id}")
-    public Board get(@PathVariable Integer id) {
-        return service.get(id);
+    public ResponseEntity get(@PathVariable Integer id) {
+        Board board = service.get(id);
+
+        if (board == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok().body(board);
     }
 }
