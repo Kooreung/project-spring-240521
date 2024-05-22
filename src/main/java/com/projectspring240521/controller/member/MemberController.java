@@ -25,7 +25,7 @@ public class MemberController {
 
     @GetMapping(value = "check", params = "email")
     public ResponseEntity checkEmail(@RequestParam("email") String email) {
-        Member member = service.getByEmail(email);
+        Member member = service.getByEmail(email.trim());
         if (member == null) {
             return ResponseEntity.notFound().build();
         }
@@ -34,7 +34,7 @@ public class MemberController {
 
     @GetMapping(value = "check", params = "nickName")
     public ResponseEntity checkNickName(@RequestParam("nickName") String nickName) {
-        Member member = service.getByNickName(nickName);
+        Member member = service.getByNickName(nickName.trim());
         if (member == null) {
             return ResponseEntity.notFound().build();
         }
