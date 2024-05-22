@@ -26,5 +26,3 @@ SELECT *
 FROM member
 ORDER BY id DESC;
 
-ALTER TABLE member
-    MODIFY COLUMN password VARCHAR(100) NOT NULL;
