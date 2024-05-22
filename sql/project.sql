@@ -20,4 +20,8 @@ CREATE TABLE member
     password  VARCHAR(20) NOT NULL,
     nick_name VARCHAR(20) NOT NULL UNIQUE,
     inserted  DATETIME    NOT NULL DEFAULT NOW()
-)
+);
+
+SELECT *
+FROM member
+ORDER BY id DESC;
