@@ -28,8 +28,12 @@ public class MemberController {
     }
 
     @GetMapping(value = "check", params = "nickName")
-    public void checkNickName(@RequestParam("nickName") String nickName) {
-//        Member member = service.getByNickName(nickName);
+    public ResponseEntity checkNickName(@RequestParam("nickName") String nickName) {
+        Member member = service.getByNickName(nickName);
+        if (member == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(nickName);
     }
 
 }
