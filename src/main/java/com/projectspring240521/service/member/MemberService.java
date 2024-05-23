@@ -86,7 +86,9 @@ public class MemberService {
         if (memberTemp == null) {
             return false;
         }
-        if (!passwordEncoder.matches(member.getOldPassword(), memberTemp.getPassword())) {
+
+        if (!passwordEncoder.matches(member.getOldPassword(),
+                memberTemp.getPassword())) {
             return false;
         }
         return true;
