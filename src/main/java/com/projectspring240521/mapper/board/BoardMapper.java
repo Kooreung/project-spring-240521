@@ -15,9 +15,10 @@ public interface BoardMapper {
     public int insert(Board board);
 
     @Select("""
-            SELECT id, title, writer
-            FROM board
-            ORDER BY id DESC
+            SELECT board.id, title, member.nick_name writer
+            FROM board JOIN member
+            ON board.member_id = member.id
+            ORDER BY board.id DESC
             """)
     List<Board> selectAll();
 
