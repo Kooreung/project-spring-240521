@@ -72,7 +72,7 @@ public class MemberService {
     }
 
     public void modify(Member member) {
-        if (member.getPassword() != null || member.getPassword().length() > 0) {
+        if (member.getPassword() != null && member.getPassword().length() > 0) {
             member.setPassword(passwordEncoder.encode(member.getPassword()));
         } else {
             Member memberPasswordTemp = mapper.selectById(member.getId());
@@ -86,7 +86,6 @@ public class MemberService {
         if (memberTemp == null) {
             return false;
         }
-
         if (!passwordEncoder.matches(member.getOldPassword(),
                 memberTemp.getPassword())) {
             return false;
