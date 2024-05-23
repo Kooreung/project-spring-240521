@@ -80,4 +80,15 @@ public class MemberService {
         }
         mapper.update(member);
     }
+
+    public boolean hasAccessModify(Member member) {
+        Member memberTemp = mapper.selectById(member.getId());
+        if (memberTemp == null) {
+            return false;
+        }
+        if (!passwordEncoder.matches(member.getOldPassword(), memberTemp.getPassword())) {
+            return false;
+        }
+        return true;
+    }
 }
