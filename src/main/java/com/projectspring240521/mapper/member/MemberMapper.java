@@ -1,10 +1,7 @@
 package com.projectspring240521.mapper.member;
 
 import com.projectspring240521.domain.member.Member;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -50,4 +47,12 @@ public interface MemberMapper {
             WHERE id = #{id}
             """)
     int deleteById(Integer id);
+
+    @Update("""
+            UPDATE member
+            SET nick_name = #{nickName},
+                password = #{password}
+            WHERE id = #{id}
+            """)
+    int update(Member member);
 }
