@@ -26,3 +26,15 @@ SELECT *
 FROM member
 ORDER BY id DESC;
 
+ALTER TABLE board
+    DROP COLUMN writer;
+
+ALTER TABLE board
+    ADD COLUMN member_id INT REFERENCES member (id) AFTER content;
+
+UPDATE board
+SET member_id = (SELECT id FROM member ORDER BY id DESC LIMIT 1)
+WHERE id > 0;
+
+ALTER TABLE board
+    MODIFY COLUMN member_id INT NOT NULL;

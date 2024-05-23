@@ -10,5 +10,7 @@ public class Board {
     private String title;
     private String content;
     private String writer;
+    private Integer memberId;
     private LocalDateTime inserted;
+
 }
