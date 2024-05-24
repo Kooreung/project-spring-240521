@@ -57,7 +57,7 @@ public interface MemberMapper {
     int update(Member member);
 
     @Select("""
-            SELECT name
+            SELECT authority_name
             FROM authority
             WHERE member_id = #{memberId}
             """)

@@ -131,7 +131,7 @@ public class MemberService {
                         .issuedAt(now)
                         .expiresAt(now.plusSeconds(60 * 60 * 24 * 7))
                         .subject(db.getId().toString())
-                        .claim("scope", "authorizing") // 권한
+                        .claim("scope", authorityString) // 권한
                         .claim("nickName", db.getNickName())
                         .build();
 
@@ -145,6 +145,9 @@ public class MemberService {
     }
 
     public boolean hasAccess(Integer id, Authentication authentication) {
-        return authentication.getName().equals(id.toString());
+        boolean self = authentication.getName().equals(id.toString());
+        boolean isAdmin = authentication.getAuthorities().stream().anyMatch(g -> g.getAuthority().equals("SCOPE_ADMIN"));
+
+        return self || isAdmin;
     }
 }
