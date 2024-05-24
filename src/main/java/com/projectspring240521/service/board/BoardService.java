@@ -1,7 +1,6 @@
 package com.projectspring240521.service.board;
 
 import com.projectspring240521.domain.board.Board;
-import com.projectspring240521.domain.member.Member;
 import com.projectspring240521.mapper.board.BoardMapper;
 import com.projectspring240521.mapper.member.MemberMapper;
 import lombok.RequiredArgsConstructor;
@@ -20,8 +19,7 @@ public class BoardService {
     ;
 
     public void add(Board board, Authentication authentication) {
-        Member member = memberMapper.selectByEmail(authentication.getName());
-        board.setMemberId(member.getId());
+        board.setMemberId(Integer.valueOf(authentication.getName()));
         mapper.insert(board);
     }
 
