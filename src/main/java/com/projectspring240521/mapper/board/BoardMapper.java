@@ -23,9 +23,10 @@ public interface BoardMapper {
     List<Board> selectAll();
 
     @Select("""
-            SELECT *
-            FROM board
-            WHERE id= #{id}
+            SELECT board.id, board.title, board.content, board.inserted, member.nick_name writer
+            FROM board JOIN member
+            ON board.member_id = member.id
+            WHERE board.id= #{id}
             """)
     Board selectById(Integer id);
 
