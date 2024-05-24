@@ -146,7 +146,7 @@ public class MemberService {
 
     public boolean hasAccess(Integer id, Authentication authentication) {
         boolean self = authentication.getName().equals(id.toString());
-        boolean isAdmin = authentication.getAuthorities().stream().anyMatch(g -> g.getAuthority().equals("SCOPE_ADMIN"));
+        boolean isAdmin = authentication.getAuthorities().stream().anyMatch(g -> g.getAuthority().equals("SCOPE_admin"));
 
         return self || isAdmin;
     }
