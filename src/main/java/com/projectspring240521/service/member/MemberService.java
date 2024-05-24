@@ -97,7 +97,11 @@ public class MemberService {
         mapper.update(member);
     }
 
-    public boolean hasAccessModify(Member member) {
+    public boolean hasAccessModify(Member member, Authentication authentication) {
+        if (!authentication.getName().equals(member.getId().toString())) {
+            return false;
+        }
+
         Member memberTemp = mapper.selectById(member.getId());
         if (memberTemp == null) {
             return false;
@@ -133,5 +137,9 @@ public class MemberService {
         }
 
         return result;
+    }
+
+    public boolean hasAccess(Integer id, Authentication authentication) {
+        return authentication.getName().equals(id.toString());
     }
 }
