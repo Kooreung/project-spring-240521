@@ -3,6 +3,7 @@ package com.projectspring240521.controller.board;
 import com.projectspring240521.domain.board.Board;
 import com.projectspring240521.service.board.BoardService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -56,7 +57,7 @@ public class BoardController {
             service.remove(id);
             return ResponseEntity.ok().build();
         } else {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
     }
 
