@@ -16,6 +16,7 @@ import java.time.Instant;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional(rollbackFor = Exception.class)
@@ -121,12 +122,16 @@ public class MemberService {
                 result = new HashMap<>();
                 String token = "";
                 Instant now = Instant.now();
+                List<String> authority = mapper.selectAuthorityByMemberId(db.getId());
+
+                String authorityString = authority.stream().collect(Collectors.joining(""));
+
                 JwtClaimsSet claims = JwtClaimsSet.builder()
                         .issuer("self")
                         .issuedAt(now)
                         .expiresAt(now.plusSeconds(60 * 60 * 24 * 7))
                         .subject(db.getId().toString())
-                        .claim("scope", "") // 권한
+                        .claim("scope", "authorizing") // 권한
                         .claim("nickName", db.getNickName())
                         .build();
 

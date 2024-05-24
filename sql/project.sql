@@ -38,3 +38,17 @@ WHERE id > 0;
 
 ALTER TABLE board
     MODIFY COLUMN member_id INT NOT NULL;
+
+# 권한 테이블
+CREATE TABLE authority
+(
+    member_id      INT         NOT NULL REFERENCES member (id),
+    authority_name VARCHAR(20) NOT NULL,
+    PRIMARY KEY (member_id, authority_name)
+);
+
+INSERT INTO authority
+VALUES (17, 'admin');
+
+SELECT *
+FROM authority;
