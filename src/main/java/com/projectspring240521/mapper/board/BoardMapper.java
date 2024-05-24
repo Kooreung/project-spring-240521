@@ -32,13 +32,13 @@ public interface BoardMapper {
 
     @Delete("""
             DELETE FROM board
-            WHERE id = #{id}
+            WHERE member_id=#{memberId}
             """)
     Integer deleteById(Integer id);
 
     @Update("""
             UPDATE board
-            SET title=#{title}, content=#{content}, writer=#{writer}
+            SET title=#{title}, content=#{content}
             WHERE id=#{id}
             """)
     void update(Board board);

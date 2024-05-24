@@ -1,6 +1,7 @@
 package com.projectspring240521.service.member;
 
 import com.projectspring240521.domain.member.Member;
+import com.projectspring240521.mapper.board.BoardMapper;
 import com.projectspring240521.mapper.member.MemberMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -23,6 +24,7 @@ public class MemberService {
     final MemberMapper mapper;
     final BCryptPasswordEncoder passwordEncoder;
     private final JwtEncoder jwtEncoder;
+    private final BoardMapper boardMapper;
 
     public void add(Member member) {
         member.setPassword(passwordEncoder.encode(member.getPassword()));
@@ -67,6 +69,7 @@ public class MemberService {
     }
 
     public void remove(Integer id) {
+        boardMapper.deleteById(id);
         mapper.deleteById(id);
     }
 
