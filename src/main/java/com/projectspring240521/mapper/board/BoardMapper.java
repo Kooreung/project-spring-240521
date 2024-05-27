@@ -15,12 +15,15 @@ public interface BoardMapper {
     public int insert(Board board);
 
     @Select("""
-            SELECT board.id, title, member.nick_name writer
+            SELECT  board.id, 
+                    board.title,
+                    member.nick_name writer
             FROM board JOIN member
             ON board.member_id = member.id
             ORDER BY board.id DESC
+            LIMIT #{offset}, 10
             """)
-    List<Board> selectAll();
+    List<Board> selectAllPaging(Integer offset);
 
     @Select("""
             SELECT board.id, board.title, board.content, board.inserted, member.nick_name writer, board.member_id
