@@ -128,14 +128,15 @@ public class BoardService {
     }
 
     public void edit(Board board, List<String> removeFileList, MultipartFile[] addFileList) throws IOException {
-        // disk 파일 삭제
-        for (String fileName : removeFileList) {
-            String path = STR."C:/Temp/prj2/\{board.getId()}/\{fileName}";
-            File file = new File(path);
-            file.delete();
-
-            // db records 삭제
-            mapper.deleteFileByBoardIdAndName(board.getId(), fileName);
+        if (removeFileList != null && removeFileList.size() > 0) {
+            // disk 파일 삭제
+            for (String fileName : removeFileList) {
+                String path = STR."C:/Temp/prj2/\{board.getId()}/\{fileName}";
+                File file = new File(path);
+                file.delete();
+                // db records 삭제
+                mapper.deleteFileByBoardIdAndName(board.getId(), fileName);
+            }
         }
 
         if (addFileList != null && addFileList.length > 0) {
