@@ -22,12 +22,7 @@ public class BoardController {
 
     @PostMapping("add")
     @PreAuthorize("isAuthenticated()")
-    public ResponseEntity add(Authentication authentication, Board board, @RequestParam("files[]") MultipartFile[] files) throws InterruptedException, IOException {
-
-        System.out.println("files = " + board.getFiles().length);
-        for (MultipartFile file : board.getFiles()) {
-            System.out.println("file.getor = " + file.getOriginalFilename());
-        }
+    public ResponseEntity add(Authentication authentication, Board board, @RequestParam("files[]") MultipartFile[] files) throws IOException {
 
         if (service.validate(board)) {
             service.add(board, files, authentication);
