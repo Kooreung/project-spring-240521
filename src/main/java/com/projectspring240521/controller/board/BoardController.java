@@ -10,6 +10,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.Map;
 
 @RestController
@@ -21,7 +22,7 @@ public class BoardController {
 
     @PostMapping("add")
     @PreAuthorize("isAuthenticated()")
-    public ResponseEntity add(Authentication authentication, Board board, @RequestParam("files[]") MultipartFile[] files) throws InterruptedException {
+    public ResponseEntity add(Authentication authentication, Board board, @RequestParam("files[]") MultipartFile[] files) throws InterruptedException, IOException {
 
         System.out.println("files = " + board.getFiles().length);
         for (MultipartFile file : board.getFiles()) {
