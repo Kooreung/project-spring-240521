@@ -42,7 +42,7 @@ public class BoardService {
 
                 // 파일 경로
                 String path = STR."C:/Temp/prj2/\{board.getId()}/\{file.getOriginalFilename()}";
-                File destination = new File(file.getOriginalFilename());
+                File destination = new File(path);
                 file.transferTo(destination);
             }
         }
