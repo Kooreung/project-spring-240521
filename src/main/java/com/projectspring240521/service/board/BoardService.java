@@ -121,7 +121,9 @@ public class BoardService {
             dirFile.delete();
         }
         mapper.deleteFileByBoardId(id);
+
         mapper.deleteById(id);
+
     }
 
     public void edit(Board board) {

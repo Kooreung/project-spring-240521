@@ -52,7 +52,7 @@ public interface BoardMapper {
 
     @Delete("""
             DELETE FROM board
-            WHERE member_id=#{memberId}
+            WHERE id=#{id}
             """)
     Integer deleteById(Integer id);
 
@@ -101,4 +101,11 @@ public interface BoardMapper {
             WHERE board_id=#{boardId}
             """)
     int deleteFileByBoardId(Integer boardId);
+
+    @Select("""
+            SELECT id
+            FROM board
+            WHERE member_id=#{memberId}
+            """)
+    List<Board> selectByMemberId(Integer memberId);
 }
