@@ -65,14 +65,14 @@ public class BoardController {
 
     @PutMapping("edit")
     @PreAuthorize("isAuthenticated()")
-    public ResponseEntity edit(@RequestBody Board board,
+    public ResponseEntity edit(Board board,
                                @RequestParam(value = "removeFileList[]", required = false) List<String> removeFileList,
                                Authentication authentication) {
         if (!service.hasAccess(board.getId(), authentication)) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
         if (service.validate(board)) {
-            service.edit(board);
+            service.edit(board, removeFileList);
             return ResponseEntity.ok().build();
         } else {
             return ResponseEntity.badRequest().build();
