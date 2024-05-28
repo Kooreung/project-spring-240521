@@ -27,12 +27,9 @@ public class BoardController {
         for (MultipartFile file : board.getFiles()) {
             System.out.println("file.getor = " + file.getOriginalFilename());
         }
-        // 요청 보내고 1초 정도 후에 응답.
-        // Thread.sleep(1000);
 
-        // 내용이 비어있다면 badRequest Return
         if (service.validate(board)) {
-            service.add(board, authentication);
+            service.add(board, files, authentication);
             return ResponseEntity.ok().build();
         } else {
             return ResponseEntity.badRequest().build();
