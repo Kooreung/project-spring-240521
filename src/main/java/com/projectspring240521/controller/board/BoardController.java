@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Map;
 
@@ -20,8 +21,12 @@ public class BoardController {
 
     @PostMapping("add")
     @PreAuthorize("isAuthenticated()")
-    public ResponseEntity add(Authentication authentication, @RequestBody Board board) throws InterruptedException {
+    public ResponseEntity add(Authentication authentication, Board board, @RequestParam("files[]") MultipartFile[] files) throws InterruptedException {
 
+        System.out.println("files = " + board.getFiles().length);
+        for (MultipartFile file : board.getFiles()) {
+            System.out.println("file.getor = " + file.getOriginalFilename());
+        }
         // 요청 보내고 1초 정도 후에 응답.
         // Thread.sleep(1000);
 

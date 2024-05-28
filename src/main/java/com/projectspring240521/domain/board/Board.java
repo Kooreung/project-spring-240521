@@ -1,6 +1,7 @@
 package com.projectspring240521.domain.board;
 
 import lombok.Data;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 
@@ -12,5 +13,6 @@ public class Board {
     private String writer;
     private Integer memberId;
     private LocalDateTime inserted;
+    private MultipartFile[] files;
 
 }
