@@ -95,6 +95,9 @@ public class BoardService {
 
     public Board get(Integer id) {
         Board board = mapper.selectById(id);
+
+        String dir = STR."C:/Temp/prj2/\{board.getId()}";
+        File dirFile = new File(dir);
         List<String> fileNames = mapper.selectFileNameByBoardId(id);
         List<String> imageSrcList = fileNames.stream()
                 .map(name -> STR."http://172.30.1.33:8888/\{id}/\{name}")
@@ -106,6 +109,18 @@ public class BoardService {
 
 
     public void remove(Integer id) {
+        List<String> fileNames = mapper.selectFileNameByBoardId(id);
+
+        String dir = STR."C:/Temp/prj2/\{id}";
+        for (String fileName : fileNames) {
+            File file = new File(dir, fileName);
+            file.delete();
+        }
+        File dirFile = new File(dir);
+        if (!dirFile.exists()) {
+            dirFile.delete();
+        }
+        mapper.deleteFileByBoardId(id);
         mapper.deleteById(id);
     }
 
