@@ -25,8 +25,7 @@ public class BoardController {
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity add(Authentication authentication,
                               Board board,
-                              @RequestParam("files[]") MultipartFile[] files) throws IOException {
-
+                              @RequestParam(value = "files[]", required = false) MultipartFile[] files) throws IOException {
         if (service.validate(board)) {
             service.add(board, files, authentication);
             return ResponseEntity.ok().build();
