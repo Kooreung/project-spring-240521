@@ -126,10 +126,10 @@ public interface BoardMapper {
     int deleteLikeByBoardInAndMemberId(Integer boardId, Integer memberId);
 
     @Insert("""
-            INSERT INTO board_file (board_id, member_id)
+            INSERT INTO board_like (board_id, member_id)
             VALUES (#{boardId}, #{memberId})
             """)
-    int InsertLikeByBoardInAndMemberId(Integer boardId, Integer memberId);
+    int insertLikeByBoardInAndMemberId(Integer boardId, Integer memberId);
 
     @Select("""
             SELECT COUNT(*)

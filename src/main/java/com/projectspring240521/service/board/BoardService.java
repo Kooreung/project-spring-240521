@@ -200,7 +200,7 @@ public class BoardService {
         int count = mapper.deleteLikeByBoardInAndMemberId(boardId, memberId);
 
         if (count == 0) {
-            mapper.InsertLikeByBoardInAndMemberId(boardId, memberId);
+            mapper.insertLikeByBoardInAndMemberId(boardId, memberId);
             result.put("like", true);
         }
 
