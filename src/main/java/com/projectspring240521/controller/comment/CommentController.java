@@ -32,4 +32,9 @@ public class CommentController {
     public List<Comment> list(@PathVariable Integer boardId) {
         return service.list(boardId);
     }
+
+    @DeleteMapping("remove")
+    public void remove(Comment comment) {
+        service.remove(comment);
+    }
 }
