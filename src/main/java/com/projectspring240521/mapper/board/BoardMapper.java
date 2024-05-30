@@ -16,37 +16,6 @@ public interface BoardMapper {
     public int insert(Board board);
 
     @Select("""
-            <script>
-            SELECT b.id, 
-                   b.title,
-                   m.nick_name writer,
-                   COUNT(f.name) number_of_images,
-                    COUNT(DISTINCT l.member_id) number_of_like,
-                    COUNT(DISTINCT c.id) number_of_comments
-            FROM board b JOIN member m ON b.member_id = m.id
-                         LEFT JOIN board_file f ON b.id = f.board_id
-                         LEFT JOIN board_like l ON b.id = f.board_id
-                         LEFT JOIN comment c ON b.id = c.board_id
-               <trim prefix="WHERE" prefixOverrides="OR">
-                   <if test="searchType != null">
-                       <bind name="pattern" value="'%' + keyword + '%'" />
-                       <if test="searchType == 'all' || searchType == 'text'">
-                           OR b.title LIKE #{pattern}
-                           OR b.content LIKE #{pattern}
-                       </if>
-                       <if test="searchType == 'all' || searchType == 'nickName'">
-                           OR m.nick_name LIKE #{pattern}
-                       </if>
-                   </if>
-               </trim>
-            GROUP BY b.id
-            ORDER BY b.id DESC
-            LIMIT #{offset}, 10
-            </script>
-            """)
-    List<Board> selectAllPaging(Integer offset, String searchType, String keyword);
-
-    @Select("""
             SELECT board.id, board.title, board.content, board.inserted, member.nick_name writer, board.member_id
             FROM board JOIN member
             ON board.member_id = member.id
@@ -86,6 +55,37 @@ public interface BoardMapper {
             </script>
             """)
     Integer countAllWithSearch(String searchType, String keyword);
+
+    @Select("""
+            <script>
+            SELECT b.id, 
+                   b.title,
+                   m.nick_name writer,
+                   COUNT(DISTINCT f.name) number_of_images,
+                   COUNT(DISTINCT l.member_id) number_of_like,
+                   COUNT(DISTINCT c.id) number_of_comments
+            FROM board b JOIN member m ON b.member_id = m.id
+                         LEFT JOIN board_file f ON b.id = f.board_id
+                         LEFT JOIN board_like l ON b.id = l.board_id
+                         LEFT JOIN comment c ON b.id = c.board_id
+               <trim prefix="WHERE" prefixOverrides="OR">
+                   <if test="searchType != null">
+                       <bind name="pattern" value="'%' + keyword + '%'" />
+                       <if test="searchType == 'all' || searchType == 'text'">
+                           OR b.title LIKE #{pattern}
+                           OR b.content LIKE #{pattern}
+                       </if>
+                       <if test="searchType == 'all' || searchType == 'nickName'">
+                           OR m.nick_name LIKE #{pattern}
+                       </if>
+                   </if>
+               </trim>
+            GROUP BY b.id
+            ORDER BY b.id DESC
+            LIMIT #{offset}, 10
+            </script>
+            """)
+    List<Board> selectAllPaging(Integer offset, String searchType, String keyword);
 
     @Insert("""
             INSERT INTO board_file (board_id, name)
