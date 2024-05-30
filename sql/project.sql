@@ -115,4 +115,7 @@ CREATE TABLE comment
     member_id INT          NOT NULL REFERENCES member (id),
     comment   VARCHAR(500) NOT NULL,
     inserted  DATETIME     NOT NULL DEFAULT NOW()
-)
+);
+
+SELECT *
+FROM comment;
