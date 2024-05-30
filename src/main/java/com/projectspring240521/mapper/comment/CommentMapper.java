@@ -18,9 +18,9 @@ public interface CommentMapper {
     int insert(Comment comment);
 
     @Select("""
-            SELECT *
-            FROM comment
-            WHERE board_id = #{boardId}
+            SELECT c.id, c.comment, c.inserted, m.nick_name
+            FROM comment c JOIN member m ON c.member_id = m.id
+            WHERE c.board_id = #{boardId}
             ORDER BY id DESC 
             """)
     List<Comment> selectAllByBoardId(Integer boardId);
