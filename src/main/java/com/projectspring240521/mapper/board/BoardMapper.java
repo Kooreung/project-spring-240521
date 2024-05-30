@@ -20,7 +20,8 @@ public interface BoardMapper {
             SELECT b.id, 
                    b.title,
                    m.nick_name writer,
-                    COUNT(f.name) number_of_images
+                   COUNT(f.name) number_of_images,
+                   (SELECT COUNT(*) FROM board_like l WHERE l.board_id = b.id) number_of_like
             FROM board b JOIN member m ON b.member_id = m.id
                          LEFT JOIN board_file f ON b.id = f.board_id
                <trim prefix="WHERE" prefixOverrides="OR">
@@ -115,4 +116,31 @@ public interface BoardMapper {
             AND name=#{fileName}
             """)
     void deleteFileByBoardIdAndName(Integer boardId, String fileName);
+
+    @Delete("""
+            DELETE FROM board_like
+            WHERE board_id=#{boardId}
+            AND member_id=#{memberId}
+            """)
+    int deleteLikeByBoardInAndMemberId(Integer boardId, Integer memberId);
+
+    @Insert("""
+            INSERT INTO board_file (board_id, member_id)
+            VALUES (#{boardId}, #{memberId})
+            """)
+    int InsertLikeByBoardInAndMemberId(Integer boardId, Integer memberId);
+
+    @Select("""
+            SELECT COUNT(*)
+            FROM board_like
+            WHERE board_id=#{boardId}
+            """)
+    int selectCountLikeByBoardId(Integer boardId);
+
+    @Select("""
+            SELECT COUNT(*) FROM board_like
+            WHERE board_id=#{boardId}
+            AND member_id=#{memberId}
+            """)
+    int selectLikeByBoardIdAndMemberId(Integer boardId, String memberId);
 }
