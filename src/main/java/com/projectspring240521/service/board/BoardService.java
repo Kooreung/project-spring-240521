@@ -143,6 +143,7 @@ public class BoardService {
         }
 
         mapper.deleteFileByBoardId(id);
+        mapper.deleteLikeByBoardId(id);
         commentMapper.deleteCommentByBoardId(id);
         mapper.deleteById(id);
 
